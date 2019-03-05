@@ -9,10 +9,12 @@ cote_fenetre = nombre_sprite_cote * taille_sprite
 titre_fenetre = "MacGyver"
 
 #Listes des images du jeu
-image_fond = "images/fond.jpg"
+image_fond = "images/fond.png"
 image_mur = "images/mur.png"
 image_macgyver = "images/MacGyver.png"
 image_gardien = "images/Gardien.png"
 image_aiguille = "images/aiguille.png"
 image_ether = "images/ether.png"
 image_seringue = "images/seringue.png"
+
+fichier_lab = "labyrinth.txt"
