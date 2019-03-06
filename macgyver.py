@@ -24,9 +24,9 @@ while continuer:
 	#Chargement et affichage de l'écran d'accueil
 	accueil = pygame.image.load(image_fond).convert()
 	fenetre.blit(accueil, (0,0))
-	labyrinthe = Map(fichier_lab)
-	labyrinthe.generer()
-	labyrinthe.afficher(fenetre)
+	lab = Map(fichier_lab)
+	lab.generer()
+	lab.afficher(fenetre)
 
 	#Rafraichissement
 	pygame.display.flip()
@@ -46,8 +46,11 @@ while continuer:
 			continuer = 0
 
 	#Création de MacGyver
-	macGyver = MacGyver("images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", labyrinthe)
-	seringue = Objet("images/seringue.png")
+	macGyver = MacGyver("images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", lab)
+
+	#Création des objets
+	seringue = Objet("images/seringue.png", lab)
+	seringue.positionner()
 
 	#BOUCLE DE JEU
 	pygame.key.set_repeat(400, 30)
@@ -81,7 +84,7 @@ while continuer:
 			
 		#Affichages aux nouvelles positions
 		fenetre.blit(accueil, (0,0))
-		labyrinthe.afficher(fenetre)
+		lab.afficher(fenetre)
 		fenetre.blit(macGyver.direction, (macGyver.x, macGyver.y))
 		fenetre.blit(seringue.photo, (seringue.x, seringue.y))
 		pygame.display.flip()

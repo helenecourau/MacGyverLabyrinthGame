@@ -97,9 +97,13 @@ class MacGyver:
 class Objet:
 	"""Créer les objets et les faire apparaître au hasard"""
 
-	def __init__(self, photo):
+	def __init__(self, photo, lab):
 		self.photo = pygame.image.load(photo).convert_alpha()
-		self.case_x = random.randrange(0, cote_fenetre, taille_sprite)
-		self.case_y = random.randrange(0, cote_fenetre, taille_sprite)
-		self.x = random.randrange(0, cote_fenetre, taille_sprite)
-		self.y = random.randrange(0, cote_fenetre, taille_sprite)
+		self.x = 0
+		self.y = 0
+		self.case_x = 0
+		self.case_y = 0
+		self.lab = lab
+		if self.lab.structure[self.case_y][self.case_x] != "m":
+			self.case_x = random.randrange(0, cote_fenetre, taille_sprite)
+			self.case_y = random.randrange(0, cote_fenetre, taille_sprite)
