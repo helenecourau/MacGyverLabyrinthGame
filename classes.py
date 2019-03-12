@@ -26,9 +26,9 @@ class Map:
 
 	def afficher(self, fenetre):
 		"Afficher la map avec la liste renvoyée par generer()"
-		mur = pygame.image.load(image_mur).convert()
 		fond = pygame.image.load(image_fond).convert()
 		gardien = pygame.image.load(image_gardien).convert()
+		mur = pygame.image.load(image_mur).convert()
 
 		num_ligne = 0
 		for ligne in self.structure:
@@ -64,7 +64,7 @@ class MacGyver:
 		
 		#droite
 		if direction == "droite":
-			if self.case_x < (nombre_sprite_cote - 1):
+			if self.case_x < (MAX_SPRITES_SIZE - 1):
 				if self.lab.structure[self.case_y][self.case_x+1] != "m":
 					self.case_x += 1
 					self.x = self.case_x * taille_sprite
@@ -88,7 +88,7 @@ class MacGyver:
 
 		#bas
 		if direction == "bas":
-			if self.case_y < (nombre_sprite_cote - 1):
+			if self.case_y < (MAX_SPRITES_SIZE - 1):
 				if self.lab.structure[self.case_y+1][self.case_x] != "m":
 					self.case_y += 1
 					self.y = self.case_y * taille_sprite
@@ -99,11 +99,18 @@ class Objet:
 
 	def __init__(self, photo, lab):
 		self.photo = pygame.image.load(photo).convert_alpha()
-		self.x = 0
-		self.y = 0
 		self.case_x = 0
 		self.case_y = 0
 		self.lab = lab
-		if self.lab.structure[self.case_y][self.case_x] != "m":
-			self.case_x = random.randrange(0, cote_fenetre, taille_sprite)
-			self.case_y = random.randrange(0, cote_fenetre, taille_sprite)
+
+	def generate(self, fenetre):
+		k = 0
+		while k < 3:
+			self.case_x = random.randrange(MAX_SPRITES_SIZE)
+			self.case_y = random.randrange(MAX_SPRITES_SIZE)
+			if self.lab.structure [self.case_x][self.case_y] == "o":
+				print(self.case_x, self.case_y,[k])
+				self.lab.structure [self.case_x][self.case_y] = OBJECT_SPRITES[k]	
+				fenetre.blit(self.photo, (self.case_x, self.case_y))	
+				k += 1
+			

@@ -50,7 +50,11 @@ while continuer:
 
 	#Création des objets
 	seringue = Objet("images/seringue.png", lab)
-	seringue.positionner()
+	seringue.generate(fenetre)
+	ether = Objet("images/ether.png", lab)
+	ether.generate(fenetre)
+	aiguille = Objet("images/aiguille.jpeg", lab)
+	aiguille.generate(fenetre)
 
 	#BOUCLE DE JEU
 	pygame.key.set_repeat(400, 30)
@@ -86,5 +90,7 @@ while continuer:
 		fenetre.blit(accueil, (0,0))
 		lab.afficher(fenetre)
 		fenetre.blit(macGyver.direction, (macGyver.x, macGyver.y))
-		fenetre.blit(seringue.photo, (seringue.x, seringue.y))
+		fenetre.blit(seringue.photo, (seringue.case_x, seringue.case_y))
+		fenetre.blit(aiguille.photo, (aiguille.case_x, aiguille.case_y))
+		fenetre.blit(ether.photo, (ether.case_x, ether.case_y))
 		pygame.display.flip()
