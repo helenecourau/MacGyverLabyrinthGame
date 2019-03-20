@@ -1,96 +1,93 @@
 # -*- coding: Utf-8 -*
-import pygame
-from pygame.locals import *
-import random
+""" Main file to play the MacGyver maze game"""
 
-from classes import *
-from constantes import *
+import pygame
+
+import classes
+import constants
 
 pygame.init()
 
-#Ouverture de la fenêtre Pygame (carré : largeur = hauteur)
-fenetre = pygame.display.set_mode((cote_fenetre, cote_fenetre))
+#Open maze screen and display the settings
+SCREEN = pygame.display.set_mode((constants.SCREEN_SIDE, constants.SCREEN_SIDE + constants.SPACE_LINE))
 
-macgyver = pygame.image.load(image_macgyver)
-pygame.display.set_icon(macgyver)
+#Icon
+ICON = pygame.image.load(constants.MACGYVER_IMG)
+pygame.display.set_icon(ICON)
 
-#Titre
-pygame.display.set_caption(titre_fenetre)
+#Title
+pygame.display.set_caption(constants.TITLE)
 
+#Background
+GREY = [206, 206, 206]
+SCREEN.fill(GREY)
 
-#BOUCLE PRINCIPALE
-continuer = 1
-while continuer:	
-	#Chargement et affichage de l'écran d'accueil
-	accueil = pygame.image.load(image_fond).convert()
-	fenetre.blit(accueil, (0,0))
-	lab = Map(fichier_lab)
-	lab.generer()
-	lab.afficher(fenetre)
+#Create map
+MAP = classes.Map(constants.MAZE_FILE)
+MAP.create()
+MAP.afficher(SCREEN)
 
-	#Rafraichissement
-	pygame.display.flip()
+#Create MacGyver
+MACGYVER = classes.MacGyver(constants.MACGYVER_IMG, constants.MACGYVER_IMG, constants.MACGYVER_IMG, constants.MACGYVER_IMG, MAP)
 
-	#On remet ces variables à 1 à chaque tour de boucle
-	continuer_jeu = 1
-	
-	#Limitation de vitesse de la boucle
-	pygame.time.Clock().tick(30)
-	
-	for event in pygame.event.get():
-		
-		#Si l'utilisateur quitte, on met les variables 
-		#de boucle à 0 pour n'en parcourir aucune et fermer
-		if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-			continuer_jeu = 0
-			continuer = 0
+#Create objects
+SYRINGE = classes.Object(constants.SYRINGE_IMG, MAP)
+ETHER = classes.Object(constants.ETHER_IMG, MAP)
+NEEDLE = classes.Object(constants.NEEDLE_IMG, MAP)
 
-	#Création de MacGyver
-	macGyver = MacGyver("images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", lab)
+#Game loop
+CONTINUE_GAME = 1
+pygame.key.set_repeat(400, 30)
+while CONTINUE_GAME:
+    MACGYVER.display_counter(SCREEN)
+    for event in pygame.event.get():
 
-	#Création des objets
-	seringue = Objet("images/seringue.png", lab)
-	seringue.generate(fenetre)
-	ether = Objet("images/ether.png", lab)
-	ether.generate(fenetre)
-	aiguille = Objet("images/aiguille.jpeg", lab)
-	aiguille.generate(fenetre)
+        #Quit game
+        if event.type == pygame.QUIT:
+            CONTINUE_GAME = 0
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                CONTINUE_GAME = 0
+            #keydown to move MacGyver
+            elif event.key == pygame.K_RIGHT:
+                MACGYVER.deplacer("right")
+            elif event.key == pygame.K_LEFT:
+                MACGYVER.deplacer("left")
+            elif event.key == pygame.K_UP:
+                MACGYVER.deplacer("up")
+            elif event.key == pygame.K_DOWN:
+                MACGYVER.deplacer("down")
 
-	#BOUCLE DE JEU
-	pygame.key.set_repeat(400, 30)
-	while continuer_jeu:
-	
-		#Limitation de vitesse de la boucle
-		pygame.time.Clock().tick(30)
-	
-		for event in pygame.event.get():
-		
-			#Si l'utilisateur quitte, on met la variable qui continue le jeu
-			#ET la variable générale à 0 pour fermer la fenêtre
-			if event.type == QUIT:
-				continuer_jeu = 0
-				continuer = 0
-		
-			elif event.type == KEYDOWN:
-				#Si l'utilisateur presse Echap ici, on revient seulement au menu
-				if event.key == K_ESCAPE:
-					continuer_jeu = 0
-					
-				#Touches de déplacement de Donkey Kong
-				elif event.key == K_RIGHT:
-					macGyver.deplacer('droite')
-				elif event.key == K_LEFT:
-					macGyver.deplacer('gauche')
-				elif event.key == K_UP:
-					macGyver.deplacer('haut')
-				elif event.key == K_DOWN:
-					macGyver.deplacer('bas')			
-			
-		#Affichages aux nouvelles positions
-		fenetre.blit(accueil, (0,0))
-		lab.afficher(fenetre)
-		fenetre.blit(macGyver.direction, (macGyver.x, macGyver.y))
-		fenetre.blit(seringue.photo, (seringue.case_x, seringue.case_y))
-		fenetre.blit(aiguille.photo, (aiguille.case_x, aiguille.case_y))
-		fenetre.blit(ether.photo, (ether.case_x, ether.case_y))
-		pygame.display.flip()
+    #Display map, MacGyver and objects
+    MAP.afficher(SCREEN)
+    SCREEN.blit(MACGYVER.direction, (MACGYVER.x, MACGYVER.y))
+    SYRINGE.display(SCREEN)
+    NEEDLE.display(SCREEN)
+    ETHER.display(SCREEN)
+
+    #Pick up the objects
+    if MACGYVER.x == SYRINGE.x and MACGYVER.y == SYRINGE.y:
+        SYRINGE.life -= 1
+        MACGYVER.counter()
+    if MACGYVER.x == NEEDLE.x and MACGYVER.y == NEEDLE.y:
+        NEEDLE.life -= 1
+        MACGYVER.counter()
+    if MACGYVER.x == ETHER.x and MACGYVER.y == ETHER.y:
+        ETHER.life -= 1
+        MACGYVER.counter()
+
+    #Victory and defeat
+    VICTORY = pygame.font.SysFont("monospace", 30)
+    TEXT_VICTORY = VICTORY.render("You win!", 1, (0, 128, 0), (206, 206, 206))
+    LOOSE = pygame.font.SysFont("monospace", 30)
+    TEXT_LOOSE = LOOSE.render("You loose!", 1, (0, 128, 0), (206, 206, 206))
+    if MAP.structure[MACGYVER.sprite_y][MACGYVER.sprite_x] == "a" and MACGYVER.mg_counter >= 3:
+        SCREEN.blit(TEXT_VICTORY, (145, 200))
+        PROCEED = 0
+        CONTINUE_GAME = 0
+    if MAP.structure[MACGYVER.sprite_y][MACGYVER.sprite_x] == "a" and MACGYVER.mg_counter < 3:
+        SCREEN.blit(TEXT_LOOSE, (140, 200))
+        PROCEED = 0
+        CONTINUE_GAME = 0
+
+    pygame.display.flip()
