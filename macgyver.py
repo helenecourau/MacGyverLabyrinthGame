@@ -123,8 +123,9 @@ while CONTINUE_PROGRAM:
                             if MACGYVER.mg_counter < 3:
                                 SCREEN.blit(TEXT_LOOSE, (145, 200))
                         if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
+                            if event.key == pygame.K_ESCAPE:
                                 CONTINUE_GAME = 0
                                 FIRST_SCREEN = 0
+                                SCREEN.fill(pygame.Color("GREY"), (0, 0, 450, 30))
 
                         pygame.display.flip()                        
