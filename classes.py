@@ -8,6 +8,7 @@ import constants
 
 class Map:
     """Map generation"""
+    
     def __init__(self, maze_file):
         self.maze_file = maze_file
         self.structure = []
@@ -93,14 +94,12 @@ class MacGyver:
     def counter(self):
         """Count the objects picked up by MacGyver
         when it is on the right position"""
-
         if self.maze.structure[self.sprite_y][self.sprite_x] == "b":
             self.maze.structure[self.sprite_y][self.sprite_x] = "o"
             self.mg_counter = self.mg_counter + 1
 
     def display_counter(self, SCREEN):
         """Display the counter with a text way and not an image"""
-
         counter = pygame.font.SysFont("monospace", 15, 0)
         text_counter = counter.render(
             "Objects : " + str(self.mg_counter), 0, (0, 128, 0))
@@ -109,6 +108,7 @@ class MacGyver:
 
 class Object:
     """Create objects on random location"""
+   
     def __init__(self, image, maze):
         self.image = pygame.image.load(image).convert_alpha()
         self.maze = maze
@@ -119,7 +119,6 @@ class Object:
 
     def generate(self):
         """Generate objects with the .txt file"""
-
         test = 0
         while test < 1:
             self.sprite_y = random.randrange(constants.MAX_SPRITES_SIZE)
