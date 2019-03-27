@@ -10,19 +10,17 @@ class Map:
     """Map generation"""
     def __init__(self, maze_file):
         self.maze_file = maze_file
-        self.structure = 0
+        self.structure = []
 
     def create(self):
         """Create the map with the .txt file"""
         with open(self.maze_file, "r") as maze_file:
-            structure_maze = []
             for line in maze_file:
                 line_maze = []
                 for sprite in line:
                     if sprite != "\n":
                         line_maze.append(sprite)
-                structure_maze.append(line_maze)
-            self.structure = structure_maze
+                self.structure.append(line_maze)
 
     def display_map(self, screen):
         """Display map with the list return by create()"""
