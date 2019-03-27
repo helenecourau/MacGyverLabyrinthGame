@@ -24,7 +24,7 @@ class Map:
                 structure_maze.append(line_maze)
             self.structure = structure_maze
 
-    def afficher(self, screen):
+    def display_map(self, screen):
         """Display map with the list return by create()"""
         path = pygame.image.load(constants.PATH_IMG).convert()
         guardian = pygame.image.load(constants.GUARDIAN_IMG).convert()
@@ -49,20 +49,17 @@ class Map:
 class MacGyver:
     """Create MacGyver, move it and pickup the objects"""
 
-    def __init__(self, right, left, up, down, maze):
-        self.right = pygame.image.load(right).convert_alpha()
-        self.left = pygame.image.load(left).convert_alpha()
-        self.up = pygame.image.load(up).convert_alpha()
-        self.down = pygame.image.load(down).convert_alpha()
+    def __init__(self, image, maze):
+        self.image = pygame.image.load(image).convert_alpha()
         self.sprite_x = 0
         self.sprite_y = 0
         self.x = self.sprite_x * constants.SPRITE_SIZE
         self.y = self.sprite_y * constants.SPRITE_SIZE + constants.SPACE_LINE
-        self.direction = self.right
         self.maze = maze
+        self.image = self.image
         self.mg_counter = 0
 
-    def deplacer(self, direction):
+    def move(self, direction):
         """Move MacGyver with the sprite numbers"""
 
         # right
@@ -71,7 +68,6 @@ class MacGyver:
                 if self.maze.structure[self.sprite_y][self.sprite_x+1] != "m":
                     self.sprite_x += 1
                     self.x = self.sprite_x * constants.SPRITE_SIZE
-            self.direction = self.right
 
         # left
         if direction == "left":
@@ -79,7 +75,6 @@ class MacGyver:
                 if self.maze.structure[self.sprite_y][self.sprite_x-1] != "m":
                     self.sprite_x -= 1
                     self.x = self.sprite_x * constants.SPRITE_SIZE
-            self.direction = self.left
 
         # up
         if direction == "up":
@@ -88,7 +83,6 @@ class MacGyver:
                     self.sprite_y -= 1
                     self.y = self.sprite_y *\
                         constants.SPRITE_SIZE + constants.SPACE_LINE
-            self.direction = self.up
 
         # down
         if direction == "down":
@@ -97,7 +91,6 @@ class MacGyver:
                     self.sprite_y += 1
                     self.y = self.sprite_y *\
                         constants.SPRITE_SIZE + constants.SPACE_LINE
-            self.direction = self.down
 
     def counter(self):
         """Count the objects picked up by MacGyver

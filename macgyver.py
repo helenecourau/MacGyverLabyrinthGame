@@ -44,12 +44,10 @@ while CONTINUE_PROGRAM:
                     # Create map
                     MAP = classes.Map(constants.MAZE_FILE)
                     MAP.create()
-                    MAP.afficher(SCREEN)
+                    MAP.display_map(SCREEN)
 
                     # Create MacGyver
-                    MACGYVER = classes.MacGyver(
-                        constants.MACGYVER_IMG, constants.MACGYVER_IMG,
-                        constants.MACGYVER_IMG, constants.MACGYVER_IMG, MAP)
+                    MACGYVER = classes.MacGyver(constants.MACGYVER_IMG, MAP)
 
                     # Create objects
                     SYRINGE = classes.Object(constants.SYRINGE_IMG, MAP)
@@ -73,18 +71,18 @@ while CONTINUE_PROGRAM:
                                     FIRST_SCREEN = 0
                                 # keydown to move MacGyver
                                 elif event.key == pygame.K_RIGHT:
-                                    MACGYVER.deplacer("right")
+                                    MACGYVER.move("right")
                                 elif event.key == pygame.K_LEFT:
-                                    MACGYVER.deplacer("left")
+                                    MACGYVER.move("left")
                                 elif event.key == pygame.K_UP:
-                                    MACGYVER.deplacer("up")
+                                    MACGYVER.move("up")
                                 elif event.key == pygame.K_DOWN:
-                                    MACGYVER.deplacer("down")
+                                    MACGYVER.move("down")
 
                         # Display map, MacGyver and objects
-                        MAP.afficher(SCREEN)
+                        MAP.display_map(SCREEN)
                         SCREEN.blit(
-                            MACGYVER.direction, (MACGYVER.x, MACGYVER.y))
+                            MACGYVER.image, (MACGYVER.x, MACGYVER.y))
                         SYRINGE.display(SCREEN)
                         NEEDLE.display(SCREEN)
                         ETHER.display(SCREEN)
