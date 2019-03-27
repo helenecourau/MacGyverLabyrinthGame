@@ -126,6 +126,7 @@ while CONTINUE_PROGRAM:
                             if event.key == pygame.K_ESCAPE:
                                 CONTINUE_GAME = 0
                                 FIRST_SCREEN = 0
-                                SCREEN.fill(pygame.Color("GREY"), (0, 0, 450, 30))
+                                SCREEN.fill(pygame.Color("GREY"),
+                                            (0, 0, 450, 30))
 
                         pygame.display.flip()                        

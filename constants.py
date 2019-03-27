@@ -8,13 +8,13 @@ SCREEN_SIDE = MAX_SPRITES_SIZE * SPRITE_SIZE
 TITLE = "MacGyver"
 
 #Images
-PATH_IMG = "images/fond.png"
-WALL_IMG = "images/mur.png"
+PATH_IMG = "images/path.png"
+WALL_IMG = "images/wall.png"
 MACGYVER_IMG = "images/MacGyver.png"
-KEEPER_IMG = "images/Gardien.png"
-NEEDLE_IMG = "images/aiguille.png"
+GUARDIAN_IMG = "images/guardian.png"
+NEEDLE_IMG = "images/needle.png"
 ETHER_IMG = "images/ether.png"
-SYRINGE_IMG = "images/seringue.png"
+SYRINGE_IMG = "images/syringe.png"
 
 MAZE_FILE = "labyrinth.txt"
 FIRST_SCREEN = "images/first_screen.png"

@@ -27,7 +27,7 @@ class Map:
     def afficher(self, screen):
         """Display map with the list return by create()"""
         path = pygame.image.load(constants.PATH_IMG).convert()
-        keeper = pygame.image.load(constants.KEEPER_IMG).convert()
+        guardian = pygame.image.load(constants.GUARDIAN_IMG).convert()
         wall = pygame.image.load(constants.WALL_IMG).convert()
 
         num_line = 0
@@ -39,7 +39,7 @@ class Map:
                 if sprite == "m":
                     screen.blit(wall, (x, y))
                 elif sprite == "a":
-                    screen.blit(keeper, (x, y))
+                    screen.blit(guardian, (x, y))
                 elif sprite == "o" or "d":
                     screen.blit(path, (x, y))
                 num_sprite += 1
