@@ -23,7 +23,7 @@ pygame.display.set_caption(constants.TITLE)
 GREY = [206, 206, 206]
 SCREEN.fill(GREY)
 
-# BOUCLE PRINCIPALE
+# MAIN LOOP
 CONTINUE_PROGRAM = 1
 while CONTINUE_PROGRAM:
     FIRST_SCREEN_IMG = pygame.image.load(constants.FIRST_SCREEN).convert()

@@ -35,11 +35,11 @@ class Map:
             for sprite in line:
                 x = num_sprite * constants.SPRITE_SIZE
                 y = num_line * constants.SPRITE_SIZE + constants.SPACE_LINE
-                if sprite == "m":
+                if sprite == "w":
                     screen.blit(wall, (x, y))
-                elif sprite == "a":
+                elif sprite == "e":
                     screen.blit(guardian, (x, y))
-                elif sprite == "o" or "d":
+                elif sprite == "o" or "s":
                     screen.blit(path, (x, y))
                 num_sprite += 1
             num_line += 1
@@ -64,21 +64,21 @@ class MacGyver:
         # right
         if direction == "right":
             if self.sprite_x < (constants.MAX_SPRITES_SIZE - 1):
-                if self.maze.structure[self.sprite_y][self.sprite_x+1] != "m":
+                if self.maze.structure[self.sprite_y][self.sprite_x+1] != "w":
                     self.sprite_x += 1
                     self.x = self.sprite_x * constants.SPRITE_SIZE
 
         # left
         if direction == "left":
             if self.sprite_x > 0:
-                if self.maze.structure[self.sprite_y][self.sprite_x-1] != "m":
+                if self.maze.structure[self.sprite_y][self.sprite_x-1] != "w":
                     self.sprite_x -= 1
                     self.x = self.sprite_x * constants.SPRITE_SIZE
 
         # up
         if direction == "up":
             if self.sprite_y > 0:
-                if self.maze.structure[self.sprite_y-1][self.sprite_x] != "m":
+                if self.maze.structure[self.sprite_y-1][self.sprite_x] != "w":
                     self.sprite_y -= 1
                     self.y = self.sprite_y *\
                         constants.SPRITE_SIZE + constants.SPACE_LINE
@@ -86,7 +86,7 @@ class MacGyver:
         # down
         if direction == "down":
             if self.sprite_y < (constants.MAX_SPRITES_SIZE - 1):
-                if self.maze.structure[self.sprite_y+1][self.sprite_x] != "m":
+                if self.maze.structure[self.sprite_y+1][self.sprite_x] != "w":
                     self.sprite_y += 1
                     self.y = self.sprite_y *\
                         constants.SPRITE_SIZE + constants.SPACE_LINE

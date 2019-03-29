@@ -15,6 +15,6 @@ GUARDIAN_IMG = "images/guardian.png"
 NEEDLE_IMG = "images/needle.png"
 ETHER_IMG = "images/ether.png"
 SYRINGE_IMG = "images/syringe.png"
+FIRST_SCREEN = "images/first_screen.png"
 
 MAZE_FILE = "labyrinth.txt"
-FIRST_SCREEN = "images/first_screen.png"
