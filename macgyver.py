@@ -114,7 +114,7 @@ while CONTINUE_PROGRAM:
                             "Press escape to play again", 0, (
                                 19, 14, 10), (206, 206, 206))
                         if MAP.structure[MACGYVER.sprite_y]\
-                                [MACGYVER.sprite_x] == "a":
+                                [MACGYVER.sprite_x] == "e":
                             SCREEN.blit(TEXT_AGAIN, (30, 250))
                             if MACGYVER.mg_counter >= 3:
                                 SCREEN.blit(TEXT_VICTORY, (145, 200))
