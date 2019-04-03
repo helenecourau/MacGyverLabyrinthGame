@@ -1,5 +1,4 @@
 Package    Version
 ---------- -------
-pip        19.0.3 
-setuptools 40.8.0 
-wheel      0.33.1 
+pygame==1.9.2
+python==3.7
