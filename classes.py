@@ -55,7 +55,6 @@ class MacGyver:
         self.x = self.sprite_x * constants.SPRITE_SIZE
         self.y = self.sprite_y * constants.SPRITE_SIZE + constants.SPACE_LINE
         self.maze = maze
-        self.image = self.image
         self.mg_counter = 0
 
     def move(self, direction):
