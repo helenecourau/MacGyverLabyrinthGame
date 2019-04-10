@@ -1,4 +1,2 @@
 pygame==1.9.2
 python==3.7
-pylint==2.3.1
-flake8==3.7.7
